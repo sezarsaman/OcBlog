@@ -1,0 +1,39 @@
+{{ header }}
+<div id="blog-archive" class="container">
+    <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+            {% set class = 'col-sm-9' %}
+        {% else %}
+            {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
+            <h1>{{ heading_title }}</h1>
+            <p>{{ text_archive }}</p>
+            <div class="row">
+            {% for post in posts %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div style="border: 1px solid #ccc;padding: 10px 20px;margin: 10px 0;min-height: 300px;overflow: hidden;">
+                        <a href="{{ post.href }}">
+                            {% if post.image %}
+                            <img src="{{ post.image }}" alt="{{ post.title }}" class="img-responsive"  />
+                            {%  endif %}
+                            <h3 style="color: #000000;">{{ post.title }}</h3>
+                        </a>
+                        <p>{{ post.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            {{ content_bottom }}
+        </div>
+        {{ column_right }}
+    </div>
+</div>
+{{ footer }}
